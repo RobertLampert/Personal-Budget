@@ -42,8 +42,7 @@ const updateUser = (request, response) => {
   const {id, first_name, last_name, phone, address } = request.body[0];
   
   pool.query(
-    'UPDATE users SET first_name = $2, last_name = $3, phone = $4, address = $5 WHERE id = $1',
-    [id,first_name, last_name, phone, address],
+    'UPDATE users SET first_name = $2, last_name = $3, phone = $4, address = $5 WHERE id = $1', [id,first_name, last_name, phone, address],
     (error, results) => {
       if (error) {
         throw error
@@ -91,22 +90,20 @@ const createEnvelope = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`User added with ID: ${results.insertId}`)
+    response.status(201).send(`Envelope added with ID: ${id}`)
   })
 };
 
 const updateEnvelope = (request, response) => {
-  const id = parseInt(request.params.id)
-  const { first_name, last_name, phone, address } = request.body
+  const {id, first_name, last_name, phone, address } = request.body[0];
 
   pool.query(
-    'UPDATE envelope SET name = $1, email = $2, phone = $3, address = $4 WHERE id = $5',
-    [first_name, last_name, phone, address, id],
+    'UPDATE envelope SET first_name = $2, last_name = $3, phone = $4, address = $5 WHERE id = $1', [id,first_name, last_name, phone, address],
     (error, results) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`User modified with ID: ${id}`)
+      response.status(200).send(`Envelope modified with ID: ${id}`)
     }
   )
 };
@@ -118,7 +115,7 @@ const deleteEnvelope = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`User deleted with ID: ${id}`)
+    response.status(200).send(`Envelope deleted with ID: ${id}`)
   })
 };
 
@@ -145,17 +142,16 @@ const getTransactionById = (request, response) => {
 const createTransaction = (request, response) => {
   const {id, first_name, last_name, phone, address } = request.body[0];
 
-  pool.query('INSERT INTO transactions (first_name, last_name, phone, address) VALUES ($1, $2, $3, $4)', [first_name, last_name, phone, address], (error, results) => {
+  pool.query('INSERT INTO transactions (id, first_name, last_name, phone, address) VALUES ($1, $2, $3, $4, $5)', [id, first_name, last_name, phone, address], (error, results) => {
     if (error) {
       throw error
     }
-    response.status(201).send(`User added with ID: ${results.insertId}`)
+    response.status(201).send(`Transaction added with ID: ${id}`)
   })
 };
 
 const updateTransaction = (request, response) => {
-  const id = parseInt(request.params.id)
-  const { first_name, last_name, phone, address } = request.body
+  const {id, first_name, last_name, phone, address } = request.body[0];
 
   pool.query(
     'UPDATE transactions SET name = $1, email = $2, phone = $3, address = $4 WHERE id = $5',
@@ -164,7 +160,7 @@ const updateTransaction = (request, response) => {
       if (error) {
         throw error
       }
-      response.status(200).send(`User modified with ID: ${id}`)
+      response.status(200).send(`Transaction modified with ID: ${id}`)
     }
   )
 };
@@ -176,7 +172,7 @@ const deleteTransaction = (request, response) => {
     if (error) {
       throw error
     }
-    response.status(200).send(`User deleted with ID: ${id}`)
+    response.status(200).send(`Transaction deleted with ID: ${id}`)
   })
 };
 
