@@ -31,7 +31,7 @@ class envelope {
         return this._leftoverBudget=num;
     }  
 };
-
+/*
 const envTest = new envelope('food',1000,50);
 
 const envTests = new envelope('water',1000,50);
@@ -84,5 +84,5 @@ envelopeRouter.delete('/:envelopeId',(req,res,next)=>{
     envelopes.splice(res.locals.findEnvelopeFromId,1);
     res.status(204).send(envelopes);
 });
-
+*/
 module.exports = apiRouter;
